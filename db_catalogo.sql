@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/03/2024 às 00:03
+-- Tempo de geração: 06/03/2024 às 00:12
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -76,6 +76,13 @@ ALTER TABLE `tb_animes`
   ADD PRIMARY KEY (`codigo`);
 
 --
+-- Índices de tabela `tb_comentario`
+--
+ALTER TABLE `tb_comentario`
+  ADD KEY `relacao_animes` (`cod_usuario`),
+  ADD KEY `relacao_usuario` (`cod_anime`);
+
+--
 -- Índices de tabela `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
@@ -96,6 +103,17 @@ ALTER TABLE `tb_animes`
 --
 ALTER TABLE `tb_usuario`
   MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `tb_comentario`
+--
+ALTER TABLE `tb_comentario`
+  ADD CONSTRAINT `relacao_animes` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`codigo`),
+  ADD CONSTRAINT `relacao_usuario` FOREIGN KEY (`cod_anime`) REFERENCES `tb_animes` (`codigo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
